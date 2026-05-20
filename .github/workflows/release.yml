@@ -23,33 +23,47 @@ jobs:
       - name: Extract changelog entry for this version
         id: changelog
         run: |
-          # Pull the section for this version from CHANGELOG.md
           VERSION_BARE="${GITHUB_REF_NAME#v}"
+          # Pull the section for this version from CHANGELOG.md
           NOTES=$(awk "/^## \[${VERSION_BARE}\]/{flag=1; next} /^## \[/{flag=0} flag" CHANGELOG.md)
-          # Write to a file to preserve newlines
           echo "$NOTES" > release_notes.txt
           echo "Extracted release notes for $VERSION_BARE"
+          cat release_notes.txt
 
       - name: Create production ZIP
         run: |
           VERSION="${{ steps.version.outputs.VERSION }}"
-          zip -r "mosaic-${VERSION}.zip" mosaic/ \
-            --exclude "mosaic/store-listing/*" \
-            --exclude "mosaic/README.md" \
-            --exclude "mosaic/PUBLISHING.md" \
-            --exclude "mosaic/EDGE_PUBLISHING.md" \
-            --exclude "mosaic/GITHUB_RELEASES.md" \
-            --exclude "mosaic/CHANGELOG.md" \
-            --exclude "mosaic/image.png" \
-            --exclude "mosaic/.DS_Store" \
-            --exclude "mosaic/*.zip"
 
-          # Also create a stable 'latest' alias ZIP
+          # GitHub Actions checks out to the workspace root — there is no
+          # 'mosaic/' subfolder. We stage files into _build/mosaic/ so the
+          # ZIP preserves the expected folder structure for users.
+          mkdir -p _build/mosaic
+
+          rsync -a \
+            --exclude='.git' \
+            --exclude='_build' \
+            --exclude='store-listing' \
+            --exclude='README.md' \
+            --exclude='PUBLISHING.md' \
+            --exclude='EDGE_PUBLISHING.md' \
+            --exclude='GITHUB_RELEASES.md' \
+            --exclude='CHANGELOG.md' \
+            --exclude='image.png' \
+            --exclude='.DS_Store' \
+            --exclude='*.zip' \
+            . _build/mosaic/
+
+          cd _build
+          zip -r "../mosaic-${VERSION}.zip" mosaic/
+          cd ..
+
+          # Stable 'mosaic.zip' always points to the latest build
           cp "mosaic-${VERSION}.zip" "mosaic.zip"
 
           echo "ZIP size: $(du -sh mosaic-${VERSION}.zip | cut -f1)"
+          unzip -l "mosaic-${VERSION}.zip"
 
-      - name: Create GitHub Release
+      - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           name: "Mosaic ${{ steps.version.outputs.VERSION }}"
@@ -59,3 +73,4 @@ jobs:
             mosaic.zip
           draft: false
           prerelease: false
+
