@@ -27,7 +27,7 @@ git add .
 git commit -m "feat: initial release of Mosaic v1.0.0"
 
 # Create repo on GitHub first (github.com/new), then:
-git remote add origin https://github.com/adixcode/mosaic.git
+git remote add origin https://github.com/adi-uchiha/mosaic.git
 git branch -M main
 git push -u origin main
 ```
@@ -123,14 +123,14 @@ GitHub Actions will:
 Add these badges to the top of your `README.md`:
 
 ```markdown
-[![GitHub Release](https://img.shields.io/github/v/release/adixcode/mosaic?label=Download&logo=github)](https://github.com/adixcode/mosaic/releases/latest)
+[![GitHub Release](https://img.shields.io/github/v/release/adi-uchiha/mosaic?label=Download&logo=github)](https://github.com/adi-uchiha/mosaic/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 ```
 
 ### Direct install link (always points to latest ZIP)
 
 ```
-https://github.com/adixcode/mosaic/releases/latest/download/mosaic.zip
+https://github.com/adi-uchiha/mosaic/releases/latest/download/mosaic.zip
 ```
 
 Use this in your README installation section so users always get the newest version:
@@ -138,7 +138,7 @@ Use this in your README installation section so users always get the newest vers
 ```markdown
 ## Installation
 
-1. [Download the latest ZIP](https://github.com/adixcode/mosaic/releases/latest/download/mosaic.zip)
+1. [Download the latest ZIP](https://github.com/adi-uchiha/mosaic/releases/latest/download/mosaic.zip)
 2. Unzip it
 3. Open `chrome://extensions/` → enable Developer mode → Load unpacked → select the folder
 ```

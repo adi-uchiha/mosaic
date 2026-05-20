@@ -105,9 +105,9 @@ Once you're on the Edge Add-ons dashboard you'll see a **"+ New extension"** but
 | Field | Value |
 |---|---|
 | **Category** | Productivity |
-| **Privacy policy URL** | `https://github.com/adixcode/mosaic#privacy` |
-| **Website URL** | `https://github.com/adixcode/mosaic` |
-| **Support URL** | `https://github.com/adixcode/mosaic/issues` |
+| **Privacy policy URL** | `https://github.com/adi-uchiha/mosaic#privacy` |
+| **Website URL** | `https://github.com/adi-uchiha/mosaic` |
+| **Support URL** | `https://github.com/adi-uchiha/mosaic/issues` |
 
 ### Store listing (English — United States)
 
@@ -146,7 +146,7 @@ Zero dependencies. Pure HTML + CSS + JS. Loads in under 5ms.
 Everything persists in localStorage — no account, no tracking, no cloud.
 
 ✦ OPEN SOURCE
-MIT licensed. Source on GitHub: github.com/adixcode/mosaic
+MIT licensed. Source on GitHub: github.com/adi-uchiha/mosaic
 ```
 
 ---

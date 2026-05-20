@@ -191,7 +191,7 @@ Once approved:
 
 2. Copy the **Extension ID** from the dashboard and update `manifest.json` homepage_url:
    ```json
-   "homepage_url": "https://github.com/adixcode/mosaic"
+   "homepage_url": "https://github.com/adi-uchiha/mosaic"
    ```
 
 3. Share the Web Store link in your portfolio, GitHub README, and social media

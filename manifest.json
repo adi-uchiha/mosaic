@@ -4,7 +4,7 @@
   "short_name": "Mosaic",
   "version": "1.0.0",
   "description": "Minimal new tab with a bento grid. Add shortcuts, drag to reorder, favicons auto-load. Dark & light themes.",
-  "homepage_url": "https://github.com/adixcode/mosaic",
+  "homepage_url": "https://github.com/adi-uchiha/mosaic",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
