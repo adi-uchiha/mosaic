@@ -3,7 +3,7 @@
 > A premium, minimal Chrome/Edge new tab page with a dark-glass bento grid aesthetic.  
 > Add unlimited shortcuts, drag to reorder, auto-loads favicons, full dark & light theme.
 
-[![GitHub Release](https://img.shields.io/github/v/release/adixcode/mosaic?label=Download&logo=github)](https://github.com/adixcode/mosaic/releases/latest)
+[![GitHub Release](https://img.shields.io/github/v/release/adi-uchiha/mosaic?label=Download&logo=github)](https://github.com/adi-uchiha/mosaic/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Available on Edge](https://img.shields.io/badge/Edge%20Add--ons-Mosaic-0078D7?logo=microsoftedge)](https://microsoftedge.microsoft.com/addons/detail/mosaic/YOUR-ID-HERE)
 
@@ -18,7 +18,7 @@
 
 ### Option B — Direct from GitHub (Chrome & Edge)
 
-1. [**Download the latest ZIP**](https://github.com/adixcode/mosaic/releases/latest/download/mosaic.zip)
+1. [**Download the latest ZIP**](https://github.com/adi-uchiha/mosaic/releases/latest/download/mosaic.zip)
 2. Unzip it
 3. Open Chrome → `chrome://extensions/` or Edge → `edge://extensions/`
 4. Enable **Developer mode** (top-right toggle)
