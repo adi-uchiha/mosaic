@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Tab</title>
+    
+    <!-- Google Fonts Integration -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet" />
+
+    <!-- Style Sheet -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="theme-transition-lock">
+    <!-- Self-Contained SVG Fractal Noise Grain Overlay -->
+    <div class="grain-overlay"></div>
+
+    <!-- Main Container -->
+    <main class="dashboard-container">
+      
+      <!-- Top Action Bar (Theme and Audio controls) -->
+      <header class="action-bar">
+        <div class="status-indicator">
+          <span class="pulse-dot"></span>
+          <span class="status-text">SYSTEM ONLINE</span>
+        </div>
+        <div class="controls-group">
+          <!-- Audio Toggle Button -->
+          <button id="sound-toggle" class="icon-button" aria-label="Toggle Sound Effects" title="Toggle Sound Effects">
+            <svg class="icon duotone" weight="duotone" viewBox="0 0 256 256" width="20" height="20">
+              <path d="M160,32V224a8,8,0,0,1-12.91,6.3L77.09,176H32a16,16,0,0,1-16-16V96A16,16,0,0,1,32,80H77.09l70-54.3A8,8,0,0,1,160,32Z" opacity="0.3" fill="currentColor"></path>
+              <path d="M152,24a8,8,0,0,0-8,8V224a8,8,0,0,0,12.91,6.3L80.9,178.69A8,8,0,0,0,76,176H32a8,8,0,0,1-8-8V88a8,8,0,0,1,8-8H76a8,8,0,0,0,4.9-1.69l68.1-52.7a8,8,0,0,0,3-5.61Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path>
+              <path d="M192,96a32,32,0,0,1,0,64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path>
+              <path d="M224,72a64,64,0,0,1,0,112" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path>
+            </svg>
+          </button>
+          
+          <!-- Theme Toggle Button -->
+          <button id="theme-toggle" class="icon-button" aria-label="Toggle Theme" title="Toggle Theme">
+            <!-- Sun Icon (shown in dark mode) -->
+            <svg id="sun-icon" class="icon duotone" weight="duotone" viewBox="0 0 256 256" width="20" height="20">
+              <circle cx="128" cy="128" r="48" opacity="0.3" fill="currentColor"></circle>
+              <circle cx="128" cy="128" r="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></circle>
+              <line x1="128" y1="16" x2="128" y2="36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+              <line x1="128" y1="220" x2="128" y2="240" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+              <line x1="48.8" y1="48.8" x2="63" y2="63" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+              <line x1="193" y1="193" x2="207.2" y2="207.2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+              <line x1="16" y1="128" x2="36" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+              <line x1="220" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+              <line x1="48.8" y1="207.2" x2="63" y2="193" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+              <line x1="193" y1="63" x2="207.2" y2="48.8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+            </svg>
+            <!-- Moon Icon (shown in light mode) -->
+            <svg id="moon-icon" class="icon duotone hidden" weight="duotone" viewBox="0 0 256 256" width="20" height="20">
+              <path d="M216.7,152.6A91.9,91.9,0,0,1,103.4,39.3,92,92,0,1,0,216.7,152.6Z" opacity="0.3" fill="currentColor"></path>
+              <path d="M216.7,152.6A91.9,91.9,0,0,1,103.4,39.3,92,92,0,1,0,216.7,152.6Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Primary Bento Dashboard Grid -->
+      <section class="bento-grid-container">
+        
+        <!-- Bento Card 1: Live Greeting & Clock Widget -->
+        <article class="bento-card col-span-2" id="greeting-card">
+          <div class="bento-spotlight-both bento-spotlight-inner"></div>
+          <div class="bento-card-inner">
+            <div class="card-header">
+              <div class="terminal-dots">
+                <span class="term-dot red"></span>
+                <span class="term-dot yellow"></span>
+                <span class="term-dot green"></span>
+              </div>
+              <span class="terminal-title">shell://new-tab</span>
+            </div>
+            
+            <div class="greeting-content">
+              <h1 class="greeting-text">
+                Good <span id="greeting-time-tag">day</span>, 
+                <span id="user-name" class="editable-name" contenteditable="true" title="Click to edit your name" spellcheck="false">you</span>
+              </h1>
+              <p class="date-display" id="live-date">Loading date...</p>
+            </div>
+            
+            <div class="clock-display" id="live-clock">
+              <span class="clock-time">00:00:00</span>
+              <span class="clock-ampm">AM</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Bento Card 2: Interactive Search Widget -->
+        <article class="bento-card col-span-2" id="search-card">
+          <div class="bento-spotlight-both bento-spotlight-inner"></div>
+          <div class="bento-card-inner">
+            <div class="card-header">
+              <span class="card-label">SECURE SEARCH</span>
+              <div class="search-engines-selector">
+                <button class="engine-tab active" data-engine="google" title="Search Google">
+                  Google
+                </button>
+                <button class="engine-tab" data-engine="github" title="Search GitHub">
+                  GitHub
+                </button>
+                <button class="engine-tab" data-engine="duckduckgo" title="Search DuckDuckGo">
+                  DuckDuckGo
+                </button>
+                <button class="engine-tab" data-engine="youtube" title="Search YouTube">
+                  YouTube
+                </button>
+              </div>
+            </div>
+
+            <form id="search-form" class="search-form-container">
+              <div class="search-input-wrapper">
+                <svg class="search-icon" viewBox="0 0 256 256" width="20" height="20">
+                  <circle cx="116" cy="116" r="84" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"></circle>
+                  <line x1="175.4" y1="175.4" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"></line>
+                </svg>
+                <input 
+                  type="text" 
+                  id="search-input" 
+                  placeholder="Ask me anything..." 
+                  autocomplete="off"
+                  autofocus
+                  spellcheck="false"
+                />
+              </div>
+            </form>
+            
+            <div class="search-footer">
+              <span class="shortcut-tip">Press <kbd>Tab</kbd> to cycle engines, <kbd>Enter</kbd> to execute</span>
+            </div>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- Section Title for Shortcuts -->
+      <section class="section-divider">
+        <h2 class="section-title">Quick Launch Grid</h2>
+        <span class="section-subtitle">Drag to sequence. Double-click card to open, hover for details.</span>
+      </section>
+
+      <!-- Dynamic Shortcuts Grid -->
+      <section class="shortcuts-grid" id="shortcuts-container">
+        <!-- Shortcut Cards generated dynamically via JavaScript -->
+        
+        <!-- Add Shortcut Placeholder Card (Always sits at the end) -->
+        <div class="bento-card add-card" id="add-shortcut-trigger">
+          <div class="bento-spotlight-both bento-spotlight-inner"></div>
+          <div class="bento-card-inner flex-center">
+            <div class="add-icon-wrapper">
+              <svg viewBox="0 0 256 256" width="32" height="32" class="icon-plus">
+                <line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+                <line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
+              </svg>
+            </div>
+            <span class="add-label">New Shortcut</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Glassmorphic Modal dialog for Adding/Editing Shortcuts -->
+    <dialog class="modal-overlay" id="shortcut-modal">
+      <div class="modal-container">
+        <header class="modal-header">
+          <h3 id="modal-title" class="modal-title-text">Create New Shortcut</h3>
+          <button id="modal-close" class="modal-close-btn" aria-label="Close dialog">
+            <svg viewBox="0 0 256 256" width="18" height="18">
+              <line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"></line>
+              <line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"></line>
+            </svg>
+          </button>
+        </header>
+        
+        <form id="shortcut-form" method="dialog">
+          <input type="hidden" id="shortcut-id" />
+          
+          <div class="form-group">
+            <label for="shortcut-name">Name</label>
+            <input 
+              type="text" 
+              id="shortcut-name" 
+              placeholder="e.g. GitHub" 
+              required 
+              autocomplete="off" 
+              spellcheck="false"
+            />
+          </div>
+          
+          <div class="form-group">
+            <label for="shortcut-url">URL</label>
+            <input 
+              type="text" 
+              id="shortcut-url" 
+              placeholder="e.g. https://github.com" 
+              required 
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" id="modal-cancel-btn" class="btn btn-secondary">Cancel</button>
+            <button type="submit" id="modal-submit-btn" class="btn btn-primary">Save Shortcut</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <!-- Script File -->
+    <script src="app.js"></script>
+  </body>
+</html>

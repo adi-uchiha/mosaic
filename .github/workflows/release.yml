@@ -1,0 +1,61 @@
+name: Release Mosaic
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'   # Triggers on tags like v1.0.0, v1.2.3
+
+jobs:
+  release:
+    name: Build & Publish Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # Required to create GitHub Releases
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Extract changelog entry for this version
+        id: changelog
+        run: |
+          # Pull the section for this version from CHANGELOG.md
+          VERSION_BARE="${GITHUB_REF_NAME#v}"
+          NOTES=$(awk "/^## \[${VERSION_BARE}\]/{flag=1; next} /^## \[/{flag=0} flag" CHANGELOG.md)
+          # Write to a file to preserve newlines
+          echo "$NOTES" > release_notes.txt
+          echo "Extracted release notes for $VERSION_BARE"
+
+      - name: Create production ZIP
+        run: |
+          VERSION="${{ steps.version.outputs.VERSION }}"
+          zip -r "mosaic-${VERSION}.zip" mosaic/ \
+            --exclude "mosaic/store-listing/*" \
+            --exclude "mosaic/README.md" \
+            --exclude "mosaic/PUBLISHING.md" \
+            --exclude "mosaic/EDGE_PUBLISHING.md" \
+            --exclude "mosaic/GITHUB_RELEASES.md" \
+            --exclude "mosaic/CHANGELOG.md" \
+            --exclude "mosaic/image.png" \
+            --exclude "mosaic/.DS_Store" \
+            --exclude "mosaic/*.zip"
+
+          # Also create a stable 'latest' alias ZIP
+          cp "mosaic-${VERSION}.zip" "mosaic.zip"
+
+          echo "ZIP size: $(du -sh mosaic-${VERSION}.zip | cut -f1)"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Mosaic ${{ steps.version.outputs.VERSION }}"
+          body_path: release_notes.txt
+          files: |
+            mosaic-${{ steps.version.outputs.VERSION }}.zip
+            mosaic.zip
+          draft: false
+          prerelease: false
