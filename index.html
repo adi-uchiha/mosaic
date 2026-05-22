@@ -28,7 +28,7 @@
         </div>
         <div class="controls-group">
           <!-- Audio Toggle Button -->
-          <button id="sound-toggle" class="icon-button" aria-label="Toggle Sound Effects" title="Toggle Sound Effects">
+          <button id="sound-toggle" class="icon-button" tabindex="-1" aria-label="Toggle Sound Effects" title="Toggle Sound Effects">
             <svg class="icon duotone" weight="duotone" viewBox="0 0 256 256" width="20" height="20">
               <path d="M160,32V224a8,8,0,0,1-12.91,6.3L77.09,176H32a16,16,0,0,1-16-16V96A16,16,0,0,1,32,80H77.09l70-54.3A8,8,0,0,1,160,32Z" opacity="0.3" fill="currentColor"></path>
               <path d="M152,24a8,8,0,0,0-8,8V224a8,8,0,0,0,12.91,6.3L80.9,178.69A8,8,0,0,0,76,176H32a8,8,0,0,1-8-8V88a8,8,0,0,1,8-8H76a8,8,0,0,0,4.9-1.69l68.1-52.7a8,8,0,0,0,3-5.61Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path>
@@ -38,7 +38,7 @@
           </button>
           
           <!-- Theme Toggle Button -->
-          <button id="theme-toggle" class="icon-button" aria-label="Toggle Theme" title="Toggle Theme">
+          <button id="theme-toggle" class="icon-button" tabindex="-1" aria-label="Toggle Theme" title="Toggle Theme">
             <!-- Sun Icon (shown in dark mode) -->
             <svg id="sun-icon" class="icon duotone" weight="duotone" viewBox="0 0 256 256" width="20" height="20">
               <circle cx="128" cy="128" r="48" opacity="0.3" fill="currentColor"></circle>
@@ -80,7 +80,7 @@
             <div class="greeting-content">
               <h1 class="greeting-text">
                 Good <span id="greeting-time-tag">day</span>, 
-                <span id="user-name" class="editable-name" contenteditable="true" title="Click to edit your name" spellcheck="false">you</span>
+                <span id="user-name" class="editable-name" contenteditable="true" tabindex="-1" title="Click to edit your name" spellcheck="false">you</span>
               </h1>
               <p class="date-display" id="live-date">Loading date...</p>
             </div>
@@ -99,16 +99,16 @@
             <div class="card-header">
               <span class="card-label">SECURE SEARCH</span>
               <div class="search-engines-selector">
-                <button class="engine-tab active" data-engine="google" title="Search Google">
+                <button class="engine-tab active" tabindex="-1" data-engine="google" title="Search Google">
                   Google
                 </button>
-                <button class="engine-tab" data-engine="github" title="Search GitHub">
+                <button class="engine-tab" tabindex="-1" data-engine="github" title="Search GitHub">
                   GitHub
                 </button>
-                <button class="engine-tab" data-engine="duckduckgo" title="Search DuckDuckGo">
+                <button class="engine-tab" tabindex="-1" data-engine="duckduckgo" title="Search DuckDuckGo">
                   DuckDuckGo
                 </button>
-                <button class="engine-tab" data-engine="youtube" title="Search YouTube">
+                <button class="engine-tab" tabindex="-1" data-engine="youtube" title="Search YouTube">
                   YouTube
                 </button>
               </div>
@@ -123,6 +123,7 @@
                 <input 
                   type="text" 
                   id="search-input" 
+                  tabindex="-1"
                   placeholder="Ask me anything..." 
                   autocomplete="off"
                   autofocus
@@ -132,7 +133,7 @@
             </form>
             
             <div class="search-footer">
-              <span class="shortcut-tip">Press <kbd>Tab</kbd> to cycle engines, <kbd>Enter</kbd> to execute</span>
+              <span class="shortcut-tip">Press <kbd>Enter</kbd> to search</span>
             </div>
           </div>
         </article>
@@ -150,7 +151,7 @@
         <!-- Shortcut Cards generated dynamically via JavaScript -->
         
         <!-- Add Shortcut Placeholder Card (Always sits at the end) -->
-        <div class="bento-card add-card" id="add-shortcut-trigger">
+        <div class="bento-card add-card" id="add-shortcut-trigger" tabindex="0" role="button" aria-label="Add New Shortcut">
           <div class="bento-spotlight-both bento-spotlight-inner"></div>
           <div class="bento-card-inner flex-center">
             <div class="add-icon-wrapper">

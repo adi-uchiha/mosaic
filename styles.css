@@ -573,11 +573,13 @@ body {
 }
 
 /* ── Keyboard focus ring for Tab navigation in the shortcut grid ── */
-.shortcut-card:focus {
+.shortcut-card:focus,
+.add-card:focus {
   outline: none;
 }
 
-.shortcut-card:focus-visible {
+.shortcut-card:focus-visible,
+.add-card:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px var(--accent-green);
 }
@@ -593,6 +595,17 @@ body {
 }
 
 .shortcut-card:focus-visible .shortcut-name {
+  color: var(--text-primary);
+}
+
+.add-card:focus-visible .add-icon-wrapper {
+  color: var(--accent-green);
+  border-color: var(--accent-green);
+  background-color: var(--accent-glow);
+  transform: scale(1.1);
+}
+
+.add-card:focus-visible .add-label {
   color: var(--text-primary);
 }
 

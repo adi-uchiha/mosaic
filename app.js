@@ -213,15 +213,7 @@ function handleSearch(e) {
   window.open(builder(q), '_self');
 }
 
-// Tab key cycles search engines
-function handleSearchKeydown(e) {
-  if (e.key === 'Tab') {
-    e.preventDefault();
-    const idx  = ENGINE_ORDER.indexOf(state.engine);
-    const next = ENGINE_ORDER[(idx + 1) % ENGINE_ORDER.length];
-    setEngine(next);
-  }
-}
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 8. FAVICON RESOLUTION
@@ -230,7 +222,17 @@ function handleSearchKeydown(e) {
 function getDomain(url) {
   try {
     const u = new URL(url.startsWith('http') ? url : `https://${url}`);
-    return u.hostname;
+    let host = u.hostname.toLowerCase();
+    
+    // Strip common web-app subdomains that block/confuse favicon crawlers (e.g. web.whatsapp.com -> whatsapp.com)
+    const prefixes = ['web.', 'app.', 'desktop.', 'm.', 'mobile.'];
+    for (const p of prefixes) {
+      if (host.startsWith(p)) {
+        host = host.slice(p.length);
+        break;
+      }
+    }
+    return host;
   } catch {
     return url;
   }
@@ -328,7 +330,7 @@ function createShortcutCard(shortcut) {
   // Double-click → open URL
   card.addEventListener('dblclick', () => {
     playOpen();
-    window.open(shortcut.url, '_blank', 'noopener');
+    window.open(shortcut.url, '_self');
   });
 
   // Single click on body opens URL too (not on action buttons)
@@ -337,7 +339,7 @@ function createShortcutCard(shortcut) {
     if (e.detail === 1) {
       // Debounce: single-click also opens (one-click convenience)
       playOpen();
-      window.open(shortcut.url, '_blank', 'noopener');
+      window.open(shortcut.url, '_self');
     }
   });
 
@@ -375,7 +377,7 @@ function createShortcutCard(shortcut) {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       playOpen();
-      window.open(shortcut.url, '_blank', 'noopener');
+      window.open(shortcut.url, '_self');
     }
     // 'e' key shows edit modal; 'Delete'/'Backspace' deletes
     if (e.key === 'e' || e.key === 'E') {
@@ -728,17 +730,25 @@ function init() {
   // Search form
   const searchForm = document.getElementById('search-form');
   if (searchForm) searchForm.addEventListener('submit', handleSearch);
-  const searchInput = document.getElementById('search-input');
-  if (searchInput) searchInput.addEventListener('keydown', handleSearchKeydown);
 
   // Render shortcuts
   renderShortcuts();
 
   // Add shortcut trigger
-  document.getElementById('add-shortcut-trigger').addEventListener('click', () => {
-    playClick();
-    openModal(null);
-  });
+  const addTrigger = document.getElementById('add-shortcut-trigger');
+  if (addTrigger) {
+    addTrigger.addEventListener('click', () => {
+      playClick();
+      openModal(null);
+    });
+    addTrigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        playClick();
+        openModal(null);
+      }
+    });
+  }
 
   // Modal controls
   document.getElementById('shortcut-form').addEventListener('submit', handleModalSubmit);
@@ -779,24 +789,37 @@ function init() {
   if (si) setTimeout(() => si.focus(), 120);
 
   // ── Tab / Shift+Tab grid navigation ───────────────────────────────────
-  // Intercepts Tab when a shortcut card has focus and cycles within the grid.
-  // The browser's natural Tab order handles all other elements normally.
-  document.getElementById('shortcuts-container').addEventListener('keydown', (e) => {
+  // Intercepts Tab globally to cycle focus only through the shortcut grid.
+  // When a modal dialog is open, default browser focus trapping behavior is preserved.
+  document.addEventListener('keydown', (e) => {
     if (e.key !== 'Tab') return;
-    const cards = [...document.querySelectorAll('#shortcuts-container .shortcut-card')];
+
+    // If modal is open, let user tab naturally within the modal
+    const modal = document.getElementById('shortcut-modal');
+    if (modal && modal.open) return;
+
+    const cards = [...document.querySelectorAll('#shortcuts-container .shortcut-card, #shortcuts-container .add-card')];
     if (!cards.length) return;
 
     const focused = document.activeElement;
     const idx = cards.indexOf(focused);
-    if (idx === -1) return; // not focused on a shortcut card — let browser handle it
 
     e.preventDefault();
-    if (e.shiftKey) {
-      // Shift+Tab → previous card (wraps to last)
-      cards[idx === 0 ? cards.length - 1 : idx - 1].focus();
+    if (idx === -1) {
+      // If focus is anywhere else, Tab focuses the first card, Shift+Tab focuses the last card
+      if (e.shiftKey) {
+        cards[cards.length - 1].focus();
+      } else {
+        cards[0].focus();
+      }
     } else {
-      // Tab → next card (wraps to first)
-      cards[idx === cards.length - 1 ? 0 : idx + 1].focus();
+      if (e.shiftKey) {
+        // Shift+Tab → previous card (wraps to last)
+        cards[idx === 0 ? cards.length - 1 : idx - 1].focus();
+      } else {
+        // Tab → next card (wraps to first)
+        cards[idx === cards.length - 1 ? 0 : idx + 1].focus();
+      }
     }
   });
 }
